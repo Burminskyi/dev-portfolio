@@ -1,0 +1,74 @@
+<form [formGroup]="projectForm" (ngSubmit)="onSubmit()" novalidate>
+  <h3>Add New Project</h3>
+
+  @if (formError()) {
+    <p class="form-error form-error--banner">{{ formError() }}</p>
+  }
+
+  <div [class.field-invalid]="hasError('title')">
+    <label for="project-title">Title <span class="required">*</span></label>
+    <input
+      id="project-title"
+      type="text"
+      formControlName="title"
+      placeholder="My Project"
+      [attr.aria-invalid]="hasError('title')"
+    />
+    @if (hasError('title', 'required')) {
+      <small class="form-error">Title is required</small>
+    } @else if (hasError('title', 'minlength')) {
+      <small class="form-error">Title must be at least 2 characters</small>
+    }
+  </div>
+
+  <div [class.field-invalid]="hasError('description')">
+    <label for="project-description">Description <span class="required">*</span></label>
+    <textarea
+      id="project-description"
+      formControlName="description"
+      placeholder="Project summary..."
+      [attr.aria-invalid]="hasError('description')"
+    ></textarea>
+    @if (hasError('description', 'required')) {
+      <small class="form-error">Description is required</small>
+    } @else if (hasError('description', 'minlength')) {
+      <small class="form-error">Description must be at least 10 characters</small>
+    }
+  </div>
+
+  <div>
+    <label for="project-link">Link</label>
+    <input id="project-link" type="url" formControlName="link" placeholder="https://github.com/...">
+  </div>
+
+  <div>
+    <label>Associated Skills</label>
+    @if (skills().length > 0) {
+      <div class="skill-multiselect" role="group" aria-label="Associated skills">
+        @for (skill of skills(); track skill.id) {
+          <button
+            type="button"
+            class="skill-chip"
+            [class.selected]="isSkillSelected(skill.id)"
+            (click)="toggleSkill(skill.id)"
+            [attr.aria-pressed]="isSkillSelected(skill.id)"
+          >
+            <span class="skill-chip__title">{{ skill.title }}</span>
+            <span class="skill-chip__category">{{ skill.category }}</span>
+          </button>
+        }
+      </div>
+      <small class="form-hint">Click skills to select or deselect</small>
+    } @else {
+      <small class="form-hint">No skills yet — add some on the Skills page first</small>
+    }
+  </div>
+
+  <button type="submit" [disabled]="isSubmitting()">
+    @if (isSubmitting()) {
+      Saving…
+    } @else {
+      Add Project
+    }
+  </button>
+</form>

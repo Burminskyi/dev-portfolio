@@ -1,0 +1,42 @@
+<section class="project-detail">
+  <a routerLink="/projects" class="back-link">← Back to projects</a>
+
+  @if (isLoading()) {
+    <p class="empty-state">Loading project…</p>
+  } @else if (notFound() || !project()) {
+    <p class="empty-state">Project not found.</p>
+  } @else {
+    @let item = project()!;
+
+    <h1>{{ item.title }}</h1>
+
+    <div class="project-detail__body">
+      <p class="project-detail__description">{{ item.description }}</p>
+
+      @if (projectSkills().length > 0) {
+        <div class="skills-list">
+          <strong>Technologies used:</strong>
+          <div class="tech-tags">
+            @for (skill of projectSkills(); track skill.id) {
+              <span class="badge">{{ skill.title }}</span>
+            }
+          </div>
+        </div>
+      }
+
+      <div class="card-actions">
+        @if (item.link) {
+          <a class="btn-secondary" [href]="item.link" target="_blank" rel="noopener noreferrer">
+            Open external link
+          </a>
+        }
+
+        @if (isAuthenticated()) {
+          <button type="button" class="btn-danger" (click)="onDelete()">
+            Delete
+          </button>
+        }
+      </div>
+    </div>
+  }
+</section>

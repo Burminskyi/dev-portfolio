@@ -1,0 +1,32 @@
+@if (isAuthenticated()) {
+  <app-skill-form></app-skill-form>
+}
+
+<section>
+  <h2>My Skills</h2>
+
+  @if (isLoading()) {
+    <p class="empty-state">Loading skills…</p>
+  } @else if (error()) {
+    <p class="empty-state">{{ error() }}</p>
+  } @else {
+    <div class="skills-grid">
+      @for (skill of skills(); track skill.id) {
+        <div class="skill-card">
+          <h3>{{ skill.title }}</h3>
+          <span class="badge">{{ skill.category }}</span>
+          <p>{{ skill.description }}</p>
+          <small>Level: {{ skill.level }}</small>
+
+          @if (isAuthenticated()) {
+            <button type="button" class="btn-danger" (click)="onDeleteSkill(skill.id)">
+              Delete
+            </button>
+          }
+        </div>
+      } @empty {
+        <p class="empty-state">No skills added yet.</p>
+      }
+    </div>
+  }
+</section>

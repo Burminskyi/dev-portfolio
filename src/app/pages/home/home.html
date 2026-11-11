@@ -1,0 +1,90 @@
+<section class="about">
+  @if (isAboutLoading()) {
+    <p class="about__status">Loading profile…</p>
+  } @else if (aboutError()) {
+    <p class="about__status">{{ aboutError() }}</p>
+  } @else if (about(); as profile) {
+    <div class="about__hero">
+      @if (profile.avatarUrl) {
+        <img class="about__avatar" [src]="profile.avatarUrl" [alt]="profile.fullName" />
+      }
+      <div>
+        <p class="about__name">{{ profile.fullName }}</p>
+        <h1 class="about__title">{{ profile.title }}</h1>
+      </div>
+    </div>
+
+    <p class="about__bio">{{ profile.bio }}</p>
+    <p class="about__location">{{ profile.location }}</p>
+
+    <div class="about__links">
+      @if (profile.socialLinks.githubUrl) {
+        <a [href]="profile.socialLinks.githubUrl" target="_blank" rel="noopener noreferrer">GitHub</a>
+      }
+      @if (profile.socialLinks.linkedinUrl) {
+        <a [href]="profile.socialLinks.linkedinUrl" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      }
+      @if (profile.socialLinks.telegramUrl) {
+        <a [href]="profile.socialLinks.telegramUrl" target="_blank" rel="noopener noreferrer">Telegram</a>
+      }
+    </div>
+  }
+</section>
+
+<section class="home-section">
+  <div class="home-section__head">
+    <h2>Skills</h2>
+    <a routerLink="/skills" class="home-section__more">All skills</a>
+  </div>
+
+  @if (isCatalogLoading() && skills().length === 0) {
+    <p class="empty-state">Loading skills…</p>
+  } @else {
+    <div class="skills-compact">
+      @for (skill of skills(); track skill.id) {
+        <article class="skill-chip-card" [attr.title]="skill.description">
+          <span class="skill-chip-card__title">{{ skill.title }}</span>
+          <span class="skill-chip-card__meta">{{ skill.category }} · {{ skill.level }}</span>
+        </article>
+      } @empty {
+        <p class="empty-state">No skills yet.</p>
+      }
+    </div>
+  }
+</section>
+
+<section class="home-section home-section--projects">
+  <div class="home-section__head">
+    <h2>Projects</h2>
+    <a routerLink="/projects" class="home-section__more">All projects</a>
+  </div>
+
+  @if (isCatalogLoading() && projects().length === 0) {
+    <p class="empty-state">Loading projects…</p>
+  } @else {
+    <div class="projects-grid">
+      @for (project of projectsWithSkills(); track project.id) {
+        <a class="project-card project-card--link" [routerLink]="['/projects', project.id]">
+          <h3>{{ project.title }}</h3>
+          <p class="project-card__excerpt">{{ project.description }}</p>
+
+          @if (project.skills.length > 0) {
+            <div class="skills-list">
+              <div class="tech-tags">
+                @for (skill of project.skills; track skill.id) {
+                  <span class="badge">{{ skill.title }}</span>
+                }
+              </div>
+            </div>
+          }
+
+          <div class="card-actions">
+            <span class="btn-secondary btn-secondary--static">Read more</span>
+          </div>
+        </a>
+      } @empty {
+        <p class="empty-state">No projects yet.</p>
+      }
+    </div>
+  }
+</section>

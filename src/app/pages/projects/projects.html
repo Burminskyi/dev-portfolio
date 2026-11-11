@@ -1,0 +1,49 @@
+@if (isAuthenticated()) {
+  <app-project-form></app-project-form>
+}
+
+<section>
+  <h2>My Projects</h2>
+
+  @if (isLoading()) {
+    <p class="empty-state">Loading projects…</p>
+  } @else if (error()) {
+    <p class="empty-state">{{ error() }}</p>
+  } @else {
+    <div class="projects-grid">
+      @for (project of projectsWithSkills(); track project.id) {
+        <a class="project-card project-card--link" [routerLink]="['/projects', project.id]">
+          <h3>{{ project.title }}</h3>
+          <p class="project-card__excerpt">{{ project.description }}</p>
+
+          @if (project.skills.length > 0) {
+            <div class="skills-list">
+              <strong>Technologies used:</strong>
+              <div class="tech-tags">
+                @for (skill of project.skills; track skill.id) {
+                  <span class="badge">{{ skill.title }}</span>
+                }
+              </div>
+            </div>
+          }
+
+          <div class="card-actions">
+            <span class="btn-secondary btn-secondary--static">Read more</span>
+
+            @if (isAuthenticated()) {
+              <button
+                type="button"
+                class="btn-danger"
+                (click)="onDeleteProject($event, project.id)"
+              >
+                Delete
+              </button>
+            }
+          </div>
+        </a>
+      } @empty {
+        <p class="empty-state">No projects found.</p>
+      }
+    </div>
+  }
+</section>

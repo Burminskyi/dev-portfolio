@@ -1,0 +1,18 @@
+:host {
+  display: block;
+}
+
+section {
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3.5rem;
+  animation: fade-up 0.55s var(--ease) both;
+}
+
+section h2 {
+  margin-bottom: 0.25rem;
+}
+
+.skill-card .btn-danger {
+  margin-top: 0.85rem;
+}

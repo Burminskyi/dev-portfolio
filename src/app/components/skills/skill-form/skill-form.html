@@ -1,0 +1,72 @@
+<form [formGroup]="skillForm" (ngSubmit)="onSubmit()" novalidate>
+  <h3>Add New Skill</h3>
+
+  @if (formError()) {
+    <p class="form-error form-error--banner">{{ formError() }}</p>
+  }
+
+  <div [class.field-invalid]="hasError('title')">
+    <label for="skill-title">Title <span class="required">*</span></label>
+    <input
+      id="skill-title"
+      type="text"
+      formControlName="title"
+      placeholder="e.g. C# / .NET"
+      [attr.aria-invalid]="hasError('title')"
+    />
+    @if (hasError('title', 'required')) {
+      <small class="form-error">Title is required</small>
+    } @else if (hasError('title', 'minlength')) {
+      <small class="form-error">Title must be at least 2 characters</small>
+    }
+  </div>
+
+  <div [class.field-invalid]="hasError('category')">
+    <label for="skill-category">Category <span class="required">*</span></label>
+    <select id="skill-category" formControlName="category" [attr.aria-invalid]="hasError('category')">
+      <option value="Backend">Backend</option>
+      <option value="Frontend">Frontend</option>
+      <option value="Database">Database</option>
+      <option value="DevOps">DevOps</option>
+    </select>
+    @if (hasError('category', 'required')) {
+      <small class="form-error">Category is required</small>
+    }
+  </div>
+
+  <div [class.field-invalid]="hasError('description')">
+    <label for="skill-description">Description <span class="required">*</span></label>
+    <textarea
+      id="skill-description"
+      formControlName="description"
+      placeholder="Short experience summary..."
+      [attr.aria-invalid]="hasError('description')"
+    ></textarea>
+    @if (hasError('description', 'required')) {
+      <small class="form-error">Description is required</small>
+    } @else if (hasError('description', 'minlength')) {
+      <small class="form-error">Description must be at least 10 characters</small>
+    }
+  </div>
+
+  <div [class.field-invalid]="hasError('level')">
+    <label for="skill-level">Level <span class="required">*</span></label>
+    <select id="skill-level" formControlName="level" [attr.aria-invalid]="hasError('level')">
+      <option value="beginner">Beginner</option>
+      <option value="intermediate">Intermediate</option>
+      <option value="advanced">Advanced</option>
+      <option value="expert">Expert</option>
+    </select>
+    @if (hasError('level', 'required')) {
+      <small class="form-error">Level is required</small>
+    }
+  </div>
+
+  <button type="submit" [disabled]="isSubmitting()">
+    @if (isSubmitting()) {
+      Saving…
+    } @else {
+      Add Skill
+    }
+  </button>
+</form>

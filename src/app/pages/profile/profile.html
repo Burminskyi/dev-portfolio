@@ -1,0 +1,105 @@
+<section class="profile">
+  <h2>My Profile</h2>
+  <p class="profile__hint">Update your public info, social links and photo.</p>
+
+  @if (isLoading() && !about()) {
+    <p class="empty-state">Loading profile…</p>
+  } @else {
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" novalidate class="profile-form">
+      @if (formError()) {
+        <p class="form-error form-error--banner">{{ formError() }}</p>
+      }
+      @if (formSuccess()) {
+        <p class="form-success">{{ formSuccess() }}</p>
+      }
+
+      <div class="avatar-block">
+        <div class="avatar-preview">
+          @if (avatarPreview()) {
+            <img [src]="avatarPreview()" alt="Avatar preview" />
+          } @else {
+            <span>No photo</span>
+          }
+        </div>
+
+        <div class="avatar-actions">
+          <label class="file-btn" for="avatar-input">Choose photo</label>
+          <input
+            id="avatar-input"
+            type="file"
+            accept="image/*"
+            (change)="onAvatarSelected($event)"
+            hidden
+          />
+          @if (avatarPreview()) {
+            <button type="button" class="btn-danger" (click)="clearAvatar()">Remove</button>
+          }
+          <small class="form-hint">JPG/PNG up to 2 MB. Stored as Base64 Data URL.</small>
+        </div>
+      </div>
+
+      <div [class.field-invalid]="hasError('fullName')">
+        <label for="fullName">Full name <span class="required">*</span></label>
+        <input id="fullName" type="text" formControlName="fullName" />
+        @if (hasError('fullName', 'required')) {
+          <small class="form-error">Full name is required</small>
+        } @else if (hasError('fullName', 'minlength')) {
+          <small class="form-error">At least 2 characters</small>
+        }
+      </div>
+
+      <div [class.field-invalid]="hasError('title')">
+        <label for="title">Title / Role <span class="required">*</span></label>
+        <input id="title" type="text" formControlName="title" placeholder="Fullstack Developer" />
+        @if (hasError('title', 'required')) {
+          <small class="form-error">Title is required</small>
+        } @else if (hasError('title', 'minlength')) {
+          <small class="form-error">At least 2 characters</small>
+        }
+      </div>
+
+      <div [class.field-invalid]="hasError('bio')">
+        <label for="bio">Bio <span class="required">*</span></label>
+        <textarea id="bio" formControlName="bio" rows="5"></textarea>
+        @if (hasError('bio', 'required')) {
+          <small class="form-error">Bio is required</small>
+        } @else if (hasError('bio', 'minlength')) {
+          <small class="form-error">At least 10 characters</small>
+        }
+      </div>
+
+      <div [class.field-invalid]="hasError('location')">
+        <label for="location">Location <span class="required">*</span></label>
+        <input id="location" type="text" formControlName="location" placeholder="Ukraine" />
+        @if (hasError('location', 'required')) {
+          <small class="form-error">Location is required</small>
+        }
+      </div>
+
+      <h3 class="profile-form__section">Social links</h3>
+
+      <div>
+        <label for="githubUrl">GitHub</label>
+        <input id="githubUrl" type="url" formControlName="githubUrl" placeholder="https://github.com/..." />
+      </div>
+
+      <div>
+        <label for="linkedinUrl">LinkedIn</label>
+        <input id="linkedinUrl" type="url" formControlName="linkedinUrl" placeholder="https://linkedin.com/in/..." />
+      </div>
+
+      <div>
+        <label for="telegramUrl">Telegram</label>
+        <input id="telegramUrl" type="url" formControlName="telegramUrl" placeholder="https://t.me/..." />
+      </div>
+
+      <button type="submit" [disabled]="isSubmitting()">
+        @if (isSubmitting()) {
+          Saving…
+        } @else {
+          Save profile
+        }
+      </button>
+    </form>
+  }
+</section>

@@ -1,0 +1,57 @@
+<section class="login-container">
+  <div class="login-card">
+    <h2>Admin Login</h2>
+
+    @if (errorMessage()) {
+      <div class="alert-error">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="form-group" [class.field-invalid]="hasError('email')">
+        <label for="email">Email <span class="required">*</span></label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="admin@portfolio.local"
+          [attr.aria-invalid]="hasError('email')"
+        />
+        @if (hasError('email', 'required')) {
+          <small class="error-text">Email is required</small>
+        } @else if (hasError('email', 'email')) {
+          <small class="error-text">Please enter a valid email address</small>
+        }
+      </div>
+
+      <div class="form-group" [class.field-invalid]="hasError('password')">
+        <label for="password">Password <span class="required">*</span></label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="••••••••"
+          [attr.aria-invalid]="hasError('password')"
+        />
+        @if (hasError('password', 'required')) {
+          <small class="error-text">Password is required</small>
+        } @else if (hasError('password', 'minlength')) {
+          <small class="error-text">Password must be at least 6 characters</small>
+        }
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="isLoading()"
+        class="btn-submit"
+      >
+        @if (isLoading()) {
+          Signing in...
+        } @else {
+          Sign In
+        }
+      </button>
+    </form>
+  </div>
+</section>

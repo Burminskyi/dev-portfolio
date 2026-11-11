@@ -1,0 +1,46 @@
+:host {
+  display: block;
+}
+
+.project-detail {
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3.5rem;
+  animation: fade-up 0.55s var(--ease) both;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.back-link:hover {
+  color: var(--cyan);
+}
+
+.project-detail h1 {
+  margin-bottom: 1rem;
+  font-size: clamp(1.75rem, 3.5vw, 2.4rem);
+}
+
+.project-detail__body {
+  max-width: 48rem;
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background:
+    var(--gradient-surface),
+    var(--bg-elevated);
+  box-shadow: var(--shadow-soft);
+}
+
+.project-detail__description {
+  white-space: pre-wrap;
+  color: var(--text-soft);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}

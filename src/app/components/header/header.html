@@ -1,0 +1,12 @@
+<header>
+  <nav>
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a routerLink="/skills" routerLinkActive="active">Skills</a>
+    <a routerLink="/projects" routerLinkActive="active">Projects</a>
+
+    @if (isAuthenticated()) {
+      <a routerLink="/profile" routerLinkActive="active">Profile</a>
+      <button type="button" class="nav-logout" (click)="logout()">Logout</button>
+    }
+  </nav>
+</header>

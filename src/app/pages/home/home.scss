@@ -1,0 +1,191 @@
+:host {
+  display: block;
+}
+
+.about {
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding: clamp(3rem, 12vh, 5rem) 1.25rem 2rem;
+  animation: fade-up 0.6s var(--ease) both;
+}
+
+.about__status {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--text-muted);
+}
+
+.about__hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  margin-bottom: 0.75rem;
+}
+
+.about__avatar {
+  width: clamp(160px, 22vw, 220px);
+  height: clamp(160px, 22vw, 220px);
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  box-shadow: var(--glow-cyan);
+}
+
+.about__name {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--text);
+}
+
+.about__name::after {
+  content: '';
+  display: block;
+  width: 72px;
+  height: 3px;
+  margin-top: 1.25rem;
+  border-radius: 999px;
+  background: var(--gradient-accent);
+  box-shadow: var(--glow-cyan);
+}
+
+.about__title {
+  margin: 1.25rem 0 0.75rem;
+  font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  color: var(--cyan);
+}
+
+.about__bio {
+  max-width: 42rem;
+  margin: 0 0 1rem;
+  color: var(--text-soft);
+  font-size: 1.05rem;
+}
+
+.about__location {
+  margin: 0 0 1.5rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.about__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+}
+
+.about__links a {
+  color: var(--text-soft);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition:
+    color 0.25s var(--ease),
+    border-color 0.25s var(--ease);
+}
+
+.about__links a:hover {
+  color: var(--cyan);
+  border-color: rgba(103, 232, 249, 0.45);
+}
+
+.home-section {
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 2.5rem;
+  animation: fade-up 0.55s var(--ease) both;
+}
+
+.home-section--projects {
+  padding-bottom: 3.5rem;
+}
+
+.home-section__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.home-section__head h2 {
+  margin: 0;
+}
+
+.home-section__more {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.home-section__more:hover {
+  color: var(--cyan);
+}
+
+/* Compact skills — dense chip grid for many items */
+.skills-compact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.skill-chip-card {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  max-width: 100%;
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(255, 255, 255, 0.03);
+  transition:
+    border-color 0.25s var(--ease),
+    background 0.25s var(--ease),
+    transform 0.25s var(--ease);
+}
+
+.skill-chip-card:hover {
+  border-color: rgba(103, 232, 249, 0.35);
+  background: rgba(103, 232, 249, 0.07);
+  transform: translateY(-1px);
+}
+
+.skill-chip-card__title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.skill-chip-card__meta {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: capitalize;
+  color: var(--text-muted);
+  line-height: 1.2;
+}
+
+.project-card--link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.project-card__excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.btn-secondary--static {
+  pointer-events: none;
+}

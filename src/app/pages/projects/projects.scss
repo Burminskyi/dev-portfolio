@@ -1,0 +1,32 @@
+:host {
+  display: block;
+}
+
+section {
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3.5rem;
+  animation: fade-up 0.55s var(--ease) both;
+}
+
+section h2 {
+  margin-bottom: 0.25rem;
+}
+
+.project-card--link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.project-card__excerpt {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.btn-secondary--static {
+  pointer-events: none;
+}
